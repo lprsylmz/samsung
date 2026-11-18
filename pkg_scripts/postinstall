@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+chmod 755 /Library/Printers/SpliX 2>/dev/null || true
+chmod 755 /Library/Printers/SpliX/Filters 2>/dev/null || true
+chmod 755 /Library/Printers/SpliX/Filters/rastertoqpdl 2>/dev/null || true
+chown -R root:wheel /Library/Printers/SpliX 2>/dev/null || true
+xattr -cr /Library/Printers/SpliX/Filters/rastertoqpdl 2>/dev/null || true
+
+chown root:wheel /Library/Printers/PPDs/Contents/Resources/SpliX-*.ppd 2>/dev/null || true
+chmod 644 /Library/Printers/PPDs/Contents/Resources/SpliX-*.ppd 2>/dev/null || true
+
+killall -HUP cupsd 2>/dev/null || true
+exit 0
